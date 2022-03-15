@@ -1,0 +1,39 @@
+ninja_required_version = 1.3
+cxx = c++
+nvcc = /usr/local/cuda/bin/nvcc
+
+cflags = -pthread -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/local/lib/python3.6/dist-packages/torch/include -I/usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include -I/usr/local/lib/python3.6/dist-packages/torch/include/TH -I/usr/local/lib/python3.6/dist-packages/torch/include/THC -I/usr/local/cuda/include -I/usr/include/python3.6m -c
+post_cflags = -O3 -DVERSION_GE_1_1 -DVERSION_GE_1_3 -DVERSION_GE_1_5 -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=amp_C -D_GLIBCXX_USE_CXX11_ABI=0 -std=c++14
+cuda_cflags = -I/usr/local/lib/python3.6/dist-packages/torch/include -I/usr/local/lib/python3.6/dist-packages/torch/include/torch/csrc/api/include -I/usr/local/lib/python3.6/dist-packages/torch/include/TH -I/usr/local/lib/python3.6/dist-packages/torch/include/THC -I/usr/local/cuda/include -I/usr/include/python3.6m -c
+cuda_post_cflags = -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -lineinfo -O3 --use_fast_math -DVERSION_GE_1_1 -DVERSION_GE_1_3 -DVERSION_GE_1_5 -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=amp_C -D_GLIBCXX_USE_CXX11_ABI=0 -gencode=arch=compute_86,code=sm_86 -std=c++14
+ldflags = 
+
+rule compile
+  command = $cxx -MMD -MF $out.d $cflags -c $in -o $out $post_cflags
+  depfile = $out.d
+  deps = gcc
+
+rule cuda_compile
+  command = $nvcc $cuda_cflags -c $in -o $out $cuda_post_cflags
+
+
+
+build /home/VizWizVQA/Oscar/apex/build/temp.linux-x86_64-3.6/csrc/amp_C_frontend.o: compile /home/VizWizVQA/Oscar/apex/csrc/amp_C_frontend.cpp
+build /home/VizWizVQA/Oscar/apex/build/temp.linux-x86_64-3.6/csrc/multi_tensor_sgd_kernel.o: cuda_compile /home/VizWizVQA/Oscar/apex/csrc/multi_tensor_sgd_kernel.cu
+build /home/VizWizVQA/Oscar/apex/build/temp.linux-x86_64-3.6/csrc/multi_tensor_scale_kernel.o: cuda_compile /home/VizWizVQA/Oscar/apex/csrc/multi_tensor_scale_kernel.cu
+build /home/VizWizVQA/Oscar/apex/build/temp.linux-x86_64-3.6/csrc/multi_tensor_axpby_kernel.o: cuda_compile /home/VizWizVQA/Oscar/apex/csrc/multi_tensor_axpby_kernel.cu
+build /home/VizWizVQA/Oscar/apex/build/temp.linux-x86_64-3.6/csrc/multi_tensor_l2norm_kernel.o: cuda_compile /home/VizWizVQA/Oscar/apex/csrc/multi_tensor_l2norm_kernel.cu
+build /home/VizWizVQA/Oscar/apex/build/temp.linux-x86_64-3.6/csrc/multi_tensor_l2norm_kernel_mp.o: cuda_compile /home/VizWizVQA/Oscar/apex/csrc/multi_tensor_l2norm_kernel_mp.cu
+build /home/VizWizVQA/Oscar/apex/build/temp.linux-x86_64-3.6/csrc/multi_tensor_l2norm_scale_kernel.o: cuda_compile /home/VizWizVQA/Oscar/apex/csrc/multi_tensor_l2norm_scale_kernel.cu
+build /home/VizWizVQA/Oscar/apex/build/temp.linux-x86_64-3.6/csrc/multi_tensor_lamb_stage_1.o: cuda_compile /home/VizWizVQA/Oscar/apex/csrc/multi_tensor_lamb_stage_1.cu
+build /home/VizWizVQA/Oscar/apex/build/temp.linux-x86_64-3.6/csrc/multi_tensor_lamb_stage_2.o: cuda_compile /home/VizWizVQA/Oscar/apex/csrc/multi_tensor_lamb_stage_2.cu
+build /home/VizWizVQA/Oscar/apex/build/temp.linux-x86_64-3.6/csrc/multi_tensor_adam.o: cuda_compile /home/VizWizVQA/Oscar/apex/csrc/multi_tensor_adam.cu
+build /home/VizWizVQA/Oscar/apex/build/temp.linux-x86_64-3.6/csrc/multi_tensor_adagrad.o: cuda_compile /home/VizWizVQA/Oscar/apex/csrc/multi_tensor_adagrad.cu
+build /home/VizWizVQA/Oscar/apex/build/temp.linux-x86_64-3.6/csrc/multi_tensor_novograd.o: cuda_compile /home/VizWizVQA/Oscar/apex/csrc/multi_tensor_novograd.cu
+build /home/VizWizVQA/Oscar/apex/build/temp.linux-x86_64-3.6/csrc/multi_tensor_lamb.o: cuda_compile /home/VizWizVQA/Oscar/apex/csrc/multi_tensor_lamb.cu
+build /home/VizWizVQA/Oscar/apex/build/temp.linux-x86_64-3.6/csrc/multi_tensor_lamb_mp.o: cuda_compile /home/VizWizVQA/Oscar/apex/csrc/multi_tensor_lamb_mp.cu
+
+
+
+
+
