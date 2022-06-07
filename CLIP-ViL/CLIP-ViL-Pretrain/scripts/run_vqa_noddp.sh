@@ -1,0 +1,16 @@
+bash scripts/finetune_vqa_noddp.bash 0,1 snap/vqa/vqa_clip_rn50x4 \
+			--gradient_accumulation_steps 8 \
+			--batchSize 8 \
+			--lr 5e-5 \
+			--loss_scale 500 \
+			--warmup_ratio 0.05 \
+			--report_step 400 \
+			--sgd_lr 0.001 \
+			--sgd_momentum 0.0 \
+			--epoch 5 \
+			--schedule 2 \
+			--use_separate_optimizer_for_visual \
+			--use_positional_embedding \
+			--pos_num 25 \
+			--clip_model_name RN50x4 \
+			--loadLXMERTQA snap/pretrained/CLIP_VL_RN50x4

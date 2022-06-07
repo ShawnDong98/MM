@@ -1,0 +1,22 @@
+[I 2022-03-21 13:55:22.311 ServerApp] jupyterlab | extension was successfully linked.
+[W 2022-03-21 13:55:22.314 NotebookApp] 'allow_remote_access' has moved from NotebookApp to ServerApp. This config will be passed to ServerApp. Be sure to update your config before our next release.
+[W 2022-03-21 13:55:22.314 NotebookApp] 'allow_root' has moved from NotebookApp to ServerApp. This config will be passed to ServerApp. Be sure to update your config before our next release.
+[W 2022-03-21 13:55:22.314 NotebookApp] 'password' has moved from NotebookApp to ServerApp. This config will be passed to ServerApp. Be sure to update your config before our next release.
+[I 2022-03-21 13:55:22.320 ServerApp] nbclassic | extension was successfully linked.
+[I 2022-03-21 13:55:22.461 ServerApp] notebook_shim | extension was successfully linked.
+[I 2022-03-21 13:55:22.476 ServerApp] notebook_shim | extension was successfully loaded.
+[I 2022-03-21 13:55:22.477 LabApp] JupyterLab extension loaded from /opt/conda/envs/maskrcnn-benchmark/lib/python3.7/site-packages/jupyterlab
+[I 2022-03-21 13:55:22.477 LabApp] JupyterLab application directory is /opt/conda/envs/maskrcnn-benchmark/share/jupyter/lab
+[I 2022-03-21 13:55:22.481 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2022-03-21 13:55:22.484 ServerApp] nbclassic | extension was successfully loaded.
+[I 2022-03-21 13:55:22.484 ServerApp] The port 8888 is already in use, trying another port.
+[I 2022-03-21 13:55:22.484 ServerApp] Serving notebooks from local directory: /home/VizWizVQA/CLIP-ViL/CLIP-ViL-Direct/vqa/grid_feats
+[I 2022-03-21 13:55:22.484 ServerApp] Jupyter Server 1.15.6 is running at:
+[I 2022-03-21 13:55:22.484 ServerApp] http://localhost:8889/lab
+[I 2022-03-21 13:55:22.484 ServerApp]  or http://127.0.0.1:8889/lab
+[I 2022-03-21 13:55:22.484 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[W 2022-03-21 13:55:22.487 ServerApp] No web browser found: could not locate runnable browser.
+[C 2022-03-21 13:55:30.323 ServerApp] received signal 15, stopping
+[I 2022-03-21 13:55:30.324 ServerApp] Shutting down 3 extensions
+[I 2022-03-21 13:55:30.324 ServerApp] Shutting down 0 kernels
+[I 2022-03-21 13:55:30.324 ServerApp] Shutting down 0 terminals
