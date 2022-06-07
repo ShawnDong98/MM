@@ -1,0 +1,11 @@
+mmf_run config=mmf_configs/visual_bert_vizwiz/defaults.yaml \
+	model=visual_bert \
+	dataset=vqa2 \
+	run_type=train \
+	training.batch_size=16 \
+    	training.log_interval=100 \
+	training.checkpoint_interval=1000 \
+    	training.evaluation_interval=1000 \
+	checkpoint.resume_pretrained=True \
+	checkpoint.resume_zoo=visual_bert.pretrained.vqa2 \
+	training.find_unused_parameters=True

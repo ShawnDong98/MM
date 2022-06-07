@@ -1,0 +1,67 @@
+model_config:
+  movie_mcan:
+    losses:
+    - type: triple_logit_bce
+    image_feature_dim: 2560
+
+dataset_config:
+  vqa2:
+    depth_first: true
+    use_features: true
+    features:
+      train:
+      - /home/datasets/VizWiz/grid-feats-vqa/clip/RN50x4
+      val:
+      - /home/datasets/VizWiz/grid-feats-vqa/clip/RN50x4
+      test:
+      - /home/datasets/VizWiz/grid-feats-vqa/clip/RN50x4
+    annotations:
+      train:
+      - ./datasets/vizwiz/annotations_paddleocr_kfold/imdb_vizwiz_train_fold0.npy
+      val:
+      - ./datasets/vizwiz/annotations_paddleocr_kfold/imdb_vizwiz_val_fold0.npy
+      test:
+      - ./datasets/vizwiz/annotations_paddleocr/imdb_vizwiz_test.npy
+    # Set to >= max number of features for the dataset
+    max_features: 1024
+    use_ocr: True
+
+optimizer:
+  type: adam_w
+  params:
+    lr: 5e-05
+    weight_decay: 0
+    eps: 1e-09
+    betas:
+    - 0.9
+    - 0.98
+
+scheduler:
+  type: multi_step
+  params:
+    use_warmup: true
+    lr_steps:
+    - 36000
+    - 43200
+    lr_ratio: 0.2
+    warmup_iterations: 10800
+    warmup_factor: 0.25
+
+evaluation:
+  metrics:
+  - vqa_accuracy
+
+training:
+  seed: 42
+  lr_scheduler: true
+  clip_norm_mode: all
+  clip_gradients: false
+  max_grad_l2_norm: 5
+  max_updates: 47200
+  batch_size: 16
+  task_size_proportional_sampling: true
+  encoder_lr_multiply: 1
+  early_stop:
+    criteria: vqa2/vqa_accuracy
+    minimize: false
+  find_unused_parameters: true
